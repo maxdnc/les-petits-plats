@@ -14,6 +14,64 @@
   </head>
   <body class="font-manrope bg-lightGray text-blackPrimary">
     <main>
+      <header
+        class="relative z-0 flex h-[690px] flex-col items-center justify-center gap-8 bg-opacity-50 bg-cover bg-center bg-no-repeat"
+        style="
+          background-image: linear-gradient(
+              0deg,
+              rgba(0, 0, 0, 0.3) 0%,
+              rgba(0, 0, 0, 0.3) 100%
+            ),
+            url(&quot;./src/assets/images/backgroundHeader.webp&quot;);
+        "
+      >
+        <div class="absolute left-[69px] top-14 z-10 flex gap-1">
+          <img
+            src="./src/assets/images/les-petits-plats_logo.svg"
+            alt="les petits plats logo"
+          />
+          <img
+            src="./src/assets/images/les-petits-plats_icon.svg"
+            alt="les petits plat icone"
+          />
+        </div>
+        <h1
+          class="font-anton relative z-10 text-center text-[44px] text-yellowSecondary"
+        >
+          CHERCHEZ PARMI PLUS DE 1500 RECETTES <br />
+          DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+        </h1>
+        <form class="relative w-full max-w-[954px] px-4">
+          <input
+            type="text"
+            placeholder="Rechercher une recette, un ingrédient, ..."
+            class="w-full rounded-[11px] bg-white px-9 py-6"
+          />
+          <button
+            aria-label="search button"
+            class="group absolute right-[10px] top-1/2 inline-flex h-[52px] w-[51px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-blackPrimary transition-colors ease-in-out hover:bg-yellowSecondary hover:text-blackPrimary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="29"
+              viewBox="0 0 28 29"
+              fill="none"
+              class="text-white group-hover:text-blackPrimary"
+            >
+              <circle cx="10" cy="10.4219" r="9.5" stroke="currentColor" />
+              <line
+                x1="18.3536"
+                y1="19.0683"
+                x2="27.3536"
+                y2="28.0683"
+                stroke="currentColor"
+              />
+            </svg>
+          </button>
+        </form>
+      </header>
+
       <div
         class="relative h-[731px] w-[380px] overflow-hidden rounded-[21px] bg-white"
       >
