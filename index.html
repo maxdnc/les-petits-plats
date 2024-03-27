@@ -12,7 +12,7 @@
     <link href="./dist/css/output.css" rel="stylesheet" />
     <title>Les petits plats - Recettes de cuisine</title>
   </head>
-  <body class="font-manrope bg-lightGray text-blackPrimary">
+  <body class="bg-lightGray font-manrope text-blackPrimary">
     <header
       class="relative z-0 flex h-[690px] flex-col items-center justify-center gap-8 bg-opacity-50 bg-cover bg-center bg-no-repeat"
       style="
@@ -35,7 +35,7 @@
         />
       </div>
       <h1
-        class="font-anton relative z-10 text-center text-[44px] text-yellowSecondary"
+        class="relative z-10 text-center font-anton text-[44px] text-yellowSecondary"
       >
         CHERCHEZ PARMI PLUS DE 1500 RECETTES <br />
         DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
@@ -71,6 +71,117 @@
       </form>
     </header>
     <main class="px-4">
+      <!-- dropdown search  -->
+      <div class="flex items-center justify-center">
+        <div class="group relative">
+          <button
+            id="dropdown-button"
+            class="inline-flex w-full content-center justify-center gap-16 rounded-b-xl rounded-t-xl bg-white p-4 text-sm font-medium text-blackPrimary focus:outline-none"
+          >
+            <span class="">Ingrédients</span>
+            <span class="self-center" id="arrow-DropDown">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="8"
+                viewBox="0 0 15 8"
+                fill="none"
+              >
+                <path
+                  d="M1 1L7.5 7L14 1"
+                  stroke="#1B1B1B"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+          </button>
+          <div
+            id="dropdown-menu"
+            class="absolute left-0 right-0 z-10 hidden rounded-b-xl bg-white"
+          >
+            <!-- Search input -->
+            <div class="px-4 pb-4">
+              <div
+                class="relative rounded border-2 border-gray-300 text-gray-600"
+              >
+                <input
+                  id="search-input"
+                  class="block w-[115px] px-2 py-1 text-sm focus:outline-none"
+                  type="text"
+                  autocomplete="off"
+                />
+                <button
+                  id="delete-input"
+                  class="absolute right-7 top-1/2 -translate-y-1/2"
+                >
+                  <span class="sr-only">Delete input</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                  >
+                    <path
+                      d="M7 7L4 4M4 4L1 1M4 4L7 1M4 4L1 7"
+                      stroke="#7A7A7A"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button class="absolute right-2 top-1/2 -translate-y-1/2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <circle
+                      cx="5"
+                      cy="5"
+                      r="4.75"
+                      stroke="#7A7A7A"
+                      stroke-width="0.5"
+                    />
+                    <line
+                      x1="9.17678"
+                      y1="9.32322"
+                      x2="13.6768"
+                      y2="13.8232"
+                      stroke="#7A7A7A"
+                      stroke-width="0.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <!-- Dropdown content goes here -->
+            <a
+              href="#"
+              class="block w-full cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
+              >Jus de citron</a
+            >
+            <a
+              href="#"
+              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
+              >Glaçons</a
+            >
+            <a
+              href="#"
+              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
+              >Tomate</a
+            >
+            <a
+              href="#"
+              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
+              >Poulet</a
+            >
+          </div>
+        </div>
+      </div>
+
       <div class="h-32 w-full"></div>
       <ul class="flex flex-wrap gap-12 py-4">
         <li>
@@ -90,7 +201,7 @@
               />
             </div>
             <div class="flex flex-col px-6 py-8">
-              <h2 class="font-anton mb-8 text-lg">Limonade de Coco</h2>
+              <h2 class="mb-8 font-anton text-lg">Limonade de Coco</h2>
               <div class="mb-8 flex flex-col gap-4">
                 <h3
                   class="text-xs font-bold uppercase tracking-[1.08px] text-darkGray"
@@ -152,7 +263,7 @@
               />
             </div>
             <div class="flex flex-col px-6 py-8">
-              <h2 class="font-anton mb-8 text-lg">Limonade de Coco</h2>
+              <h2 class="mb-8 font-anton text-lg">Limonade de Coco</h2>
               <div class="mb-8 flex flex-col gap-4">
                 <h3
                   class="text-xs font-bold uppercase tracking-[1.08px] text-darkGray"
@@ -214,7 +325,7 @@
               />
             </div>
             <div class="flex flex-col px-6 py-8">
-              <h2 class="font-anton mb-8 text-lg">Limonade de Coco</h2>
+              <h2 class="mb-8 font-anton text-lg">Limonade de Coco</h2>
               <div class="mb-8 flex flex-col gap-4">
                 <h3
                   class="text-xs font-bold uppercase tracking-[1.08px] text-darkGray"
@@ -276,7 +387,7 @@
               />
             </div>
             <div class="flex flex-col px-6 py-8">
-              <h2 class="font-anton mb-8 text-lg">Limonade de Coco</h2>
+              <h2 class="mb-8 font-anton text-lg">Limonade de Coco</h2>
               <div class="mb-8 flex flex-col gap-4">
                 <h3
                   class="text-xs font-bold uppercase tracking-[1.08px] text-darkGray"
@@ -324,6 +435,6 @@
       </ul>
     </main>
 
-    <!-- <script src="./src/javascript/main.js"></script> -->
+    <script src="./src/javascript/main.js"></script>
   </body>
 </html>
