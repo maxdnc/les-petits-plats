@@ -70,120 +70,13 @@
         </button>
       </form>
     </header>
-    <main class="px-4">
-      <!-- dropdown search  -->
-      <div class="flex items-center justify-center">
-        <div class="group relative">
-          <button
-            id="dropdown-button"
-            class="inline-flex w-full content-center justify-center gap-16 rounded-b-xl rounded-t-xl bg-white p-4 text-sm font-medium text-blackPrimary focus:outline-none"
-          >
-            <span class="">Ingrédients</span>
-            <span class="self-center" id="arrow-DropDown">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="8"
-                viewBox="0 0 15 8"
-                fill="none"
-              >
-                <path
-                  d="M1 1L7.5 7L14 1"
-                  stroke="#1B1B1B"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </span>
-          </button>
-          <div
-            id="dropdown-menu"
-            class="absolute left-0 right-0 z-10 hidden overflow-hidden rounded-b-xl bg-white"
-          >
-            <!-- Search input -->
-            <div class="px-4 pb-4">
-              <div
-                class="relative rounded border-2 border-gray-300 text-gray-600"
-              >
-                <input
-                  id="search-input"
-                  class="block w-[115px] px-2 py-1 text-sm focus:outline-none"
-                  type="text"
-                  autocomplete="off"
-                />
-                <button
-                  id="delete-input"
-                  class="absolute right-7 top-1/2 -translate-y-1/2"
-                >
-                  <span class="sr-only">Delete input</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="8"
-                    height="8"
-                    viewBox="0 0 8 8"
-                    fill="none"
-                  >
-                    <path
-                      d="M7 7L4 4M4 4L1 1M4 4L7 1M4 4L1 7"
-                      stroke="#7A7A7A"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-                <button class="absolute right-2 top-1/2 -translate-y-1/2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                  >
-                    <circle
-                      cx="5"
-                      cy="5"
-                      r="4.75"
-                      stroke="#7A7A7A"
-                      stroke-width="0.5"
-                    />
-                    <line
-                      x1="9.17678"
-                      y1="9.32322"
-                      x2="13.6768"
-                      y2="13.8232"
-                      stroke="#7A7A7A"
-                      stroke-width="0.5"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <!-- Dropdown content goes here -->
-            <a
-              href="#"
-              class="block w-full cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
-              >Jus de citron</a
-            >
-            <a
-              href="#"
-              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
-              >Glaçons</a
-            >
-            <a
-              href="#"
-              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
-              >Tomate</a
-            >
-            <a
-              href="#"
-              class="block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100"
-              >Poulet</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="h-32 w-full"></div>
-      <section id="ListRecipes"></section>
+    <main class="mx-auto max-w-[1280px] px-4">
+      <section class="flex justify-between py-6">
+        <div id="filtersMenu" class="flex gap-16"></div>
+        <span id="numberOfRecipes" class="font-anton text-xl text-black">
+        </span>
+      </section>
+      <section id="ListRecipes" class="mx-auto"></section>
     </main>
 
     <script src="./src/javascript/main.js" type="module"></script>
