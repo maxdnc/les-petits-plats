@@ -7,7 +7,7 @@ export default class ListCards {
 
   render() {
     return `
-                <ul class="flex flex-wrap gap-12 py-4">
+                <ul class="grid grid-cols-3 gap-12 pt-4 pb-24">
                         ${this.recipes.map((recipe) => `<li>${new CardRecipe(recipe).render()}</li>`).join("")}
                 </ul>
         `;
