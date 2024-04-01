@@ -10,6 +10,8 @@
   },
   "rules": {
     "quotes": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-unused-vars": "off",
+    "import/extensions": "off"
   }
 }
