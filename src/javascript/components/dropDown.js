@@ -1,4 +1,6 @@
 /* eslint-disable operator-linebreak */
+import SelectedFilter from "./SelectedFilter.js";
+
 export default class DropdownItem {
   constructor(buttonText, items) {
     this.buttonText = buttonText;
@@ -9,6 +11,7 @@ export default class DropdownItem {
     this.dropdownButton = null;
     this.searchInput = null;
     this.deleteButton = null;
+    this.selectedItems = [];
 
     this.toggleDropdown = () => {
       this.isOpen = !this.isOpen;
@@ -124,6 +127,33 @@ export default class DropdownItem {
         "block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100 capitalize";
       a.textContent = item;
       dropdownMenu.appendChild(a);
+
+      a.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default action
+
+        // Check if the item is already selected
+        if (!this.selectedItems.includes(item)) {
+          // If the item is not already selected, select it
+
+          // Create a new SelectedFilter
+          const filter = new SelectedFilter(item, (text) => {
+            // Remove the item from the selected items
+            this.selectedItems = this.selectedItems.filter(
+              (selectedItem) => selectedItem !== text,
+            );
+          });
+          const filterElement = filter.render();
+
+          // Append the filter element to the DOM
+          const container = document.querySelector("#selectedFilter");
+          container.appendChild(filterElement);
+
+          // Add the item to the selected items
+          this.selectedItems.push(item);
+        }
+
+        this.toggleDropdown();
+      });
     });
 
     groupDiv.appendChild(dropdownMenu);
