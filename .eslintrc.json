@@ -12,6 +12,7 @@
     "quotes": "off",
     "no-param-reassign": "off",
     "no-unused-vars": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "implicit-arrow-linebreak": "off"
   }
 }
