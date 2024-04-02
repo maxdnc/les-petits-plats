@@ -2,6 +2,7 @@ import DropdownItem from "./components/dropDown.js";
 import ListCards from "./components/ListCards.js";
 import recipes from "../api/recipes.js";
 import getUniqueValues from "./utils/getUniqueValues.js";
+import searchAlgorithm from "./services/searchAlgorithm.js";
 
 const listRecipesSection = document.querySelector("#ListRecipes");
 const filtersMenu = document.querySelector("#filtersMenu");
@@ -26,3 +27,11 @@ const dropdownElement3 = dropdownUstensils.createDropdown();
 filtersMenu.appendChild(dropdownElement);
 filtersMenu.appendChild(dropdownElement2);
 filtersMenu.appendChild(dropdownElement3);
+
+const searchForm = document.querySelector("#searchForm");
+const searchInput = document.querySelector("#searchInput");
+
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  searchAlgorithm(searchInput.value);
+});
