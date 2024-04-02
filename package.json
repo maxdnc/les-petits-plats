@@ -4,6 +4,8 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
+    "start": "npx tailwindcss -i ./src/css/input.css -o ./dist/css/output.css -w",
+    "watch:css": "npx tailwindcss -i ./src/css/input.css -o ./dist/css/output.css -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
