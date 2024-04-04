@@ -1,23 +1,20 @@
 /* eslint-disable prefer-const */
-import DropdownItem from "./components/dropDown.js";
 import ListCards from "./components/ListCards.js";
 import recipes from "../api/recipes.js";
-import getUniqueValues from "./utils/getUniqueValues.js";
 import searchAlgorithm from "./services/searchAlgorithm.js";
 import createAndAppendDropdown from "./utils/createAndAppendDropdown.js";
 
 const listRecipesSection = document.querySelector("#ListRecipes");
 const filtersMenu = document.querySelector("#filtersMenu");
 const numberOfRecipes = document.querySelector("#numberOfRecipes");
-const form = document.querySelector("#searchForm");
+
+const searchForm = document.querySelector("#searchForm");
+const searchInput = document.querySelector("#searchInput");
 
 let recipesList = recipes;
 numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ? "recette" : "recettes"}`;
 
 listRecipesSection.innerHTML = new ListCards(recipesList).render();
-
-const searchForm = document.querySelector("#searchForm");
-const searchInput = document.querySelector("#searchInput");
 
 let selectedItems = [];
 
@@ -54,9 +51,18 @@ createAndAppendDropdown(
   selectedItems,
 );
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const results = searchAlgorithm(searchInput.value, recipesList);
-  listRecipesSection.innerHTML = new ListCards(results).render();
-  numberOfRecipes.textContent = `${results.length} ${results.length <= 1 ? "recette" : "recettes"}`;
+searchInput.addEventListener("input", (event) => {
+  const searchValue = event.target.value;
+
+  if (searchValue.length >= 3) {
+    const results = searchAlgorithm(searchValue, recipesList);
+
+    if (results.length === 0) {
+      listRecipesSection.innerHTML = `Aucune recette ne contient '${searchValue}'. Vous pouvez chercher 'tarte aux pommes', 'poisson', etc.`;
+      numberOfRecipes.textContent = "0 recettes";
+    } else {
+      listRecipesSection.innerHTML = new ListCards(results).render();
+      numberOfRecipes.textContent = `${results.length} ${results.length <= 1 ? "recette" : "recettes"}`;
+    }
+  }
 });
