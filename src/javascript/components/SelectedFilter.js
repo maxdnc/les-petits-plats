@@ -1,8 +1,10 @@
 /* eslint-disable operator-linebreak */
+
 export default class SelectedFilter {
-  constructor(text, onDelete) {
+  constructor(text, onDelete, aElement) {
     this.text = text;
     this.onDelete = onDelete;
+    this.aElement = aElement;
   }
 
   render() {
@@ -13,6 +15,8 @@ export default class SelectedFilter {
     const srOnlySpan = document.createElement("span");
     const svgSpan = document.createElement("span");
 
+    const id = crypto.randomUUID();
+    div.setAttribute("id", id);
     // Set attributes and content
 
     div.className =
@@ -32,7 +36,8 @@ export default class SelectedFilter {
     button.addEventListener("click", () => {
       div.remove();
       this.onDelete(this.text);
-      // Handle click event
+      this.aElement.classList.remove("bg-yellowSecondary", "font-bold");
+      this.aElement.textContent = this.text;
     });
 
     // Build element hierarchy
