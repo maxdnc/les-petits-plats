@@ -1,10 +1,11 @@
 /* eslint-disable operator-linebreak */
 
 export default class SelectedFilter {
-  constructor(text, onDelete, aElement) {
+  constructor(text, onDelete, aElement, updateEvent) {
     this.text = text;
     this.onDelete = onDelete;
     this.aElement = aElement;
+    this.updateEvent = updateEvent;
   }
 
   render() {
@@ -38,6 +39,8 @@ export default class SelectedFilter {
       this.onDelete(this.text);
       this.aElement.classList.remove("bg-yellowSecondary", "font-bold");
       this.aElement.textContent = this.text;
+      window.dispatchEvent(this.updateEvent);
+      console.log(this.updateEvent.detail);
     });
 
     // Build element hierarchy
