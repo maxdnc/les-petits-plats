@@ -2,7 +2,7 @@
 import SelectedFilter from "./SelectedFilter.js";
 
 export default class DropdownItem {
-  constructor(buttonText, items) {
+  constructor(buttonText, items, onItemDeselected, selectedItem) {
     this.buttonText = buttonText;
     this.items = items;
     this.isOpen = false;
@@ -11,7 +11,9 @@ export default class DropdownItem {
     this.dropdownButton = null;
     this.searchInput = null;
     this.deleteButton = null;
-    this.selectedItems = [];
+
+    this.onItemDeselected = onItemDeselected;
+    this.selectedItems = selectedItem;
 
     this.toggleDropdown = () => {
       this.isOpen = !this.isOpen;
@@ -124,32 +126,48 @@ export default class DropdownItem {
       const a = document.createElement("a");
       a.href = "#";
       a.className =
-        "block cursor-pointer px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100 capitalize";
+        "inline-flex justify-between items-center w-full cursor-pointer text-blackPrimary px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100 capitalize";
       a.textContent = item;
       dropdownMenu.appendChild(a);
 
       a.addEventListener("click", (event) => {
         event.preventDefault(); // Prevent the default action
+        const container = document.querySelector("#selectedFilter");
 
-        // Check if the item is already selected
-        if (!this.selectedItems.includes(item)) {
-          // If the item is not already selected, select it
+        const itemIndex = this.selectedItems.indexOf(item);
+        const shouldSelect = itemIndex === -1;
 
-          // Create a new SelectedFilter
-          const filter = new SelectedFilter(item, (text) => {
-            // Remove the item from the selected items
-            this.selectedItems = this.selectedItems.filter(
-              (selectedItem) => selectedItem !== text,
-            );
-          });
-          const filterElement = filter.render();
+        if (shouldSelect) {
+          const selectedFilter = new SelectedFilter(
+            item,
+            this.onItemDeselected,
+            a,
+          );
+          a.classList.add("bg-yellowSecondary", "font-bold");
 
-          // Append the filter element to the DOM
-          const container = document.querySelector("#selectedFilter");
+          a.innerHTML += `
+  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+    <circle cx="8.5" cy="8.5" r="8.5" fill="black"/>
+    <path d="M11 11L8.5 8.5M8.5 8.5L6 6M8.5 8.5L11 6M8.5 8.5L6 11" stroke="#FFD15B" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
+
+          const filterElement = selectedFilter.render();
           container.appendChild(filterElement);
-
-          // Add the item to the selected items
           this.selectedItems.push(item);
+        } else {
+          this.selectedItems.splice(itemIndex, 1);
+
+          // Find the filter element in the container
+          const filterElement = Array.from(container.children).find(
+            (child) => child.querySelector("span").textContent.trim() === item,
+          );
+          // Remove the filter element from the container
+          if (filterElement) {
+            a.classList.remove("bg-yellowSecondary", "font-bold");
+            a.innerHTML = a.textContent;
+            filterElement.remove();
+          }
         }
 
         this.toggleDropdown();
@@ -172,5 +190,11 @@ export default class DropdownItem {
     this.searchInput.addEventListener("input", this.filterItems);
 
     return mainDiv;
+  }
+
+  removeFromSelectedItems(text) {
+    this.selectedItems = this.selectedItems.filter(
+      (selectedItem) => selectedItem !== text,
+    );
   }
 }
