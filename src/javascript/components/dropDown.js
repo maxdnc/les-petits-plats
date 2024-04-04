@@ -133,7 +133,9 @@ export default class DropdownItem {
       a.addEventListener("click", (event) => {
         event.preventDefault(); // Prevent the default action
         const container = document.querySelector("#selectedFilter");
-
+        const updateEvent = new CustomEvent("selectedItemsUpdated", {
+          detail: this.selectedItems,
+        });
         const itemIndex = this.selectedItems.indexOf(item);
         const shouldSelect = itemIndex === -1;
 
@@ -142,6 +144,7 @@ export default class DropdownItem {
             item,
             this.onItemDeselected,
             a,
+            updateEvent,
           );
           a.classList.add("bg-yellowSecondary", "font-bold");
 
@@ -169,7 +172,7 @@ export default class DropdownItem {
             filterElement.remove();
           }
         }
-
+        window.dispatchEvent(updateEvent);
         this.toggleDropdown();
       });
     });
