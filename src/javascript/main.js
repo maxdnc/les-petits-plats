@@ -83,7 +83,7 @@ window.addEventListener("selectedItemsUpdated", (event) => {
   }
 
   const recipeFilteredByTag = rechercherRecettesParTag(
-    originalRecipesList,
+    recipesList,
     updatedSelectedItems,
   );
 
