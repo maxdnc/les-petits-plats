@@ -2,7 +2,6 @@
 import ListCards from "./components/ListCards.js";
 import recipes from "../api/recipes.js";
 import searchAlgorithm from "./services/searchAlgorithm.js";
-import createAndAppendDropdown from "./utils/createAndAppendDropdown.js";
 import rechercherRecettesParTag from "./services/tagAlgorithm.js";
 import createAndAppendAllDropdowns from "./utils/createAndAppendDropdown.js";
 
