@@ -4,6 +4,7 @@ import recipes from "../api/recipes.js";
 import searchAlgorithm from "./services/searchAlgorithm.js";
 import createAndAppendDropdown from "./utils/createAndAppendDropdown.js";
 import rechercherRecettesParTag from "./services/tagAlgorithm.js";
+import createAndAppendAllDropdowns from "./utils/createAndAppendDropdown.js";
 
 const listRecipesSection = document.querySelector("#ListRecipes");
 const filtersMenu = document.querySelector("#filtersMenu");
@@ -28,26 +29,8 @@ const onItemDeselected = (item) => {
   }
 };
 
-createAndAppendDropdown(
+createAndAppendAllDropdowns(
   recipesList,
-  "ingredients",
-  "Ingrédients",
-  filtersMenu,
-  onItemDeselected,
-  selectedItems,
-);
-createAndAppendDropdown(
-  recipesList,
-  "ustensils",
-  "Ustensiles",
-  filtersMenu,
-  onItemDeselected,
-  selectedItems,
-);
-createAndAppendDropdown(
-  recipesList,
-  "appliance",
-  "Appareils",
   filtersMenu,
   onItemDeselected,
   selectedItems,
@@ -58,26 +41,8 @@ function updateList(data) {
   numberOfRecipes.textContent = `${data.length} ${data.length <= 1 ? "recette" : "recettes"}`;
   filtersMenu.innerHTML = "";
 
-  createAndAppendDropdown(
+  createAndAppendAllDropdowns(
     data,
-    "ingredients",
-    "Ingredients",
-    filtersMenu,
-    onItemDeselected,
-    selectedItems,
-  );
-  createAndAppendDropdown(
-    data,
-    "ustensils",
-    "Utensils",
-    filtersMenu,
-    onItemDeselected,
-    selectedItems,
-  );
-  createAndAppendDropdown(
-    data,
-    "appliance",
-    "Appliances",
     filtersMenu,
     onItemDeselected,
     selectedItems,
