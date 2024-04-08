@@ -128,6 +128,15 @@ export default class DropdownItem {
       a.className =
         "inline-flex justify-between items-center w-full cursor-pointer text-blackPrimary px-4 py-2 text-gray-700 hover:bg-yellowSecondary active:bg-blue-100 capitalize";
       a.textContent = item;
+      if (this.selectedItems.includes(item)) {
+        a.classList.add("bg-yellowSecondary", "font-bold");
+        a.innerHTML += `
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <circle cx="8.5" cy="8.5" r="8.5" fill="black"/>
+          <path d="M11 11L8.5 8.5M8.5 8.5L6 6M8.5 8.5L11 6M8.5 8.5L6 11" stroke="#FFD15B" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+      }
       dropdownMenu.appendChild(a);
 
       a.addEventListener("click", (event) => {
@@ -146,14 +155,6 @@ export default class DropdownItem {
             a,
             updateEvent,
           );
-          a.classList.add("bg-yellowSecondary", "font-bold");
-
-          a.innerHTML += `
-  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
-    <circle cx="8.5" cy="8.5" r="8.5" fill="black"/>
-    <path d="M11 11L8.5 8.5M8.5 8.5L6 6M8.5 8.5L11 6M8.5 8.5L6 11" stroke="#FFD15B" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-`;
 
           const filterElement = selectedFilter.render();
           container.appendChild(filterElement);
