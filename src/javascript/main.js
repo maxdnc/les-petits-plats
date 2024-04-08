@@ -13,7 +13,8 @@ const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 
 let recipesList = recipes;
-let originalRecipesList = [...recipesList]; // Keep a copy of the original list
+const originalRecipesList = [...recipesList];
+// Keep a copy of the original list
 numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ? "recette" : "recettes"}`;
 
 listRecipesSection.innerHTML = new ListCards(recipesList).render();
@@ -51,13 +52,41 @@ createAndAppendDropdown(
   onItemDeselected,
   selectedItems,
 );
-function updateList() {
-  listRecipesSection.innerHTML = new ListCards(recipesList).render();
-  numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ? "recette" : "recettes"}`;
+
+function updateList(data) {
+  listRecipesSection.innerHTML = new ListCards(data).render();
+  numberOfRecipes.textContent = `${data.length} ${data.length <= 1 ? "recette" : "recettes"}`;
+  filtersMenu.innerHTML = "";
+
+  createAndAppendDropdown(
+    data,
+    "ingredients",
+    "Ingredients",
+    filtersMenu,
+    onItemDeselected,
+    selectedItems,
+  );
+  createAndAppendDropdown(
+    data,
+    "ustensils",
+    "Utensils",
+    filtersMenu,
+    onItemDeselected,
+    selectedItems,
+  );
+  createAndAppendDropdown(
+    data,
+    "appliance",
+    "Appliances",
+    filtersMenu,
+    onItemDeselected,
+    selectedItems,
+  );
 }
+let searchValue = "";
 
 searchInput.addEventListener("input", (event) => {
-  const searchValue = event.target.value;
+  searchValue = event.target.value;
 
   if (searchValue.length >= 3) {
     const results = searchAlgorithm(searchValue, recipesList);
@@ -66,9 +95,8 @@ searchInput.addEventListener("input", (event) => {
       listRecipesSection.innerHTML = `Aucune recette ne contient '${searchValue}'. Vous pouvez chercher 'tarte aux pommes', 'poisson', etc.`;
       numberOfRecipes.textContent = "0 recettes";
     } else {
-      listRecipesSection.innerHTML = new ListCards(results).render();
-      numberOfRecipes.textContent = `${results.length} ${results.length <= 1 ? "recette" : "recettes"}`;
-      recipesList = results; // update the filtered list with the search results
+      updateList(results);
+      recipesList = results;
     }
   }
 });
@@ -78,15 +106,17 @@ window.addEventListener("selectedItemsUpdated", (event) => {
 
   if (updatedSelectedItems.length === 0) {
     recipesList = originalRecipesList;
-    updateList();
-    return; // Return here to avoid further filtering
+  } else {
+    recipesList = rechercherRecettesParTag(
+      originalRecipesList,
+      updatedSelectedItems,
+    );
   }
 
-  const recipeFilteredByTag = rechercherRecettesParTag(
-    recipesList,
-    updatedSelectedItems,
-  );
+  if (searchValue.length >= 3) {
+    recipesList = searchAlgorithm(searchValue, recipesList);
+  }
 
-  recipesList = recipeFilteredByTag;
-  updateList();
+  updateList(recipesList);
+  console.log(recipesList);
 });
