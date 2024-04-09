@@ -8,6 +8,7 @@ import createAndAppendAllDropdowns from "./utils/createAndAppendDropdown.js";
 const listRecipesSection = document.querySelector("#ListRecipes");
 const filtersMenu = document.querySelector("#filtersMenu");
 const numberOfRecipes = document.querySelector("#numberOfRecipes");
+const deleteInput = document.querySelector("#deleteInput");
 
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
@@ -19,7 +20,7 @@ numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ?
 
 listRecipesSection.innerHTML = new ListCards(recipesList).render();
 
-let selectedItems = [];
+const selectedItems = [];
 
 const onItemDeselected = (item) => {
   const index = selectedItems.indexOf(item);
@@ -48,25 +49,51 @@ function updateList(data) {
   );
 }
 let searchValue = "";
+let updatedSelectedItems = [];
 
 searchInput.addEventListener("input", (event) => {
   searchValue = event.target.value;
 
   if (searchValue.length >= 3) {
-    const results = searchAlgorithm(searchValue, recipesList);
+    const resultFromSearch = searchAlgorithm(searchValue, recipesList);
+    deleteInput.classList.remove("hidden");
 
-    if (results.length === 0) {
+    if (resultFromSearch.length === 0) {
       listRecipesSection.innerHTML = `Aucune recette ne contient '${searchValue}'. Vous pouvez chercher 'tarte aux pommes', 'poisson', etc.`;
       numberOfRecipes.textContent = "0 recettes";
     } else {
-      updateList(results);
-      recipesList = results;
+      updateList(resultFromSearch);
+      recipesList = resultFromSearch;
     }
+  } else {
+    deleteInput.classList.add("hidden");
+    recipesList = rechercherRecettesParTag(
+      originalRecipesList,
+      updatedSelectedItems,
+    );
+    updateList(recipesList);
   }
 });
 
+deleteInput.addEventListener("click", () => {
+  searchInput.value = "";
+  searchValue = "";
+  deleteInput.classList.add("hidden");
+
+  // If there are selected tags, filter the recipesList by these tags
+  if (selectedItems.length > 0) {
+    recipesList = rechercherRecettesParTag(originalRecipesList, selectedItems);
+  } else {
+    // If there are no selected tags, reset the recipesList to its original state
+    recipesList = originalRecipesList;
+  }
+
+  // Update the list
+  updateList(recipesList);
+});
+
 window.addEventListener("selectedItemsUpdated", (event) => {
-  const updatedSelectedItems = event.detail;
+  updatedSelectedItems = event.detail;
 
   if (updatedSelectedItems.length === 0) {
     recipesList = originalRecipesList;
