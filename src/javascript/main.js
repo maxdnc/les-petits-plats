@@ -15,7 +15,7 @@ const searchInput = document.querySelector("#searchInput");
 
 let recipesList = recipes;
 const originalRecipesList = [...recipesList];
-// Keep a copy of the original list
+
 numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ? "recette" : "recettes"}`;
 
 listRecipesSection.innerHTML = new ListCards(recipesList).render();
@@ -109,5 +109,4 @@ window.addEventListener("selectedItemsUpdated", (event) => {
   }
 
   updateList(recipesList);
-  console.log(recipesList);
 });
