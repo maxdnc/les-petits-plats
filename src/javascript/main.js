@@ -15,7 +15,7 @@ const searchInput = document.querySelector("#searchInput");
 
 let recipesList = recipes;
 const originalRecipesList = [...recipesList];
-
+// Keep a copy of the original list
 numberOfRecipes.textContent = `${recipesList.length} ${recipesList.length <= 1 ? "recette" : "recettes"}`;
 
 listRecipesSection.innerHTML = new ListCards(recipesList).render();
@@ -51,8 +51,45 @@ function updateList(data) {
 let searchValue = "";
 let updatedSelectedItems = [];
 
+function sanitizeInput(input) {
+  // Remove accents
+  input = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // This regular expression matches any character that is not a letter, number, or space
+  const regex = /[^a-z0-9 ]/gi;
+
+  // Replace matched characters with an empty string
+  return input.replace(regex, "");
+}
+
 searchInput.addEventListener("input", (event) => {
   searchValue = event.target.value;
+  searchValue = sanitizeInput(searchValue);
+
+  if (searchValue.length >= 3) {
+    const resultFromSearch = searchAlgorithm(searchValue, recipesList);
+    deleteInput.classList.remove("hidden");
+
+    if (resultFromSearch.length === 0) {
+      listRecipesSection.innerHTML = `Aucune recette ne contient '${searchValue}'. Vous pouvez chercher 'tarte aux pommes', 'poisson', etc.`;
+      numberOfRecipes.textContent = "0 recettes";
+    } else {
+      updateList(resultFromSearch);
+      recipesList = resultFromSearch;
+    }
+  } else {
+    deleteInput.classList.add("hidden");
+    recipesList = rechercherRecettesParTag(
+      originalRecipesList,
+      updatedSelectedItems,
+    );
+    updateList(recipesList);
+  }
+});
+
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  searchValue = sanitizeInput(searchInput.value);
 
   if (searchValue.length >= 3) {
     const resultFromSearch = searchAlgorithm(searchValue, recipesList);
@@ -109,4 +146,5 @@ window.addEventListener("selectedItemsUpdated", (event) => {
   }
 
   updateList(recipesList);
+  console.log(recipesList);
 });
