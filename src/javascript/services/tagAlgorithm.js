@@ -8,7 +8,7 @@ export default function rechercherRecettesParTag(recipes, tags) {
 
   return recipes.filter((recipe) => {
     // Vérifier si au moins un des tags est présent dans les ingrédients, ustensiles ou appareil de la recette
-    return tags.some((tag) => {
+    return tags.every((tag) => {
       // Vérifier si le tag est présent dans les ingrédients
       const ingredientPresent = recipe.ingredients.some(
         (ingredient) =>
