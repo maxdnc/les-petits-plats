@@ -4,6 +4,7 @@ import recipes from "../api/recipes.js";
 import searchAlgorithm from "./services/searchAlgorithm.js";
 import rechercherRecettesParTag from "./services/tagAlgorithm.js";
 import createAndAppendAllDropdowns from "./utils/createAndAppendDropdown.js";
+import sanitizeInput from "./utils/sanitizeInput.js";
 
 const listRecipesSection = document.querySelector("#ListRecipes");
 const filtersMenu = document.querySelector("#filtersMenu");
@@ -50,17 +51,6 @@ function updateList(data) {
 }
 let searchValue = "";
 let updatedSelectedItems = [];
-
-function sanitizeInput(input) {
-  // Remove accents
-  input = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  // This regular expression matches any character that is not a letter, number, or space
-  const regex = /[^a-z0-9 ]/gi;
-
-  // Replace matched characters with an empty string
-  return input.replace(regex, "");
-}
 
 searchInput.addEventListener("input", (event) => {
   searchValue = event.target.value;
