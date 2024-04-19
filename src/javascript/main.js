@@ -56,8 +56,14 @@ searchInput.addEventListener("input", (event) => {
   searchValue = event.target.value;
   searchValue = sanitizeInput(searchValue);
 
+  // Filtrer les recettes en fonction des tags sélectionnés
+  const filteredRecipes = rechercherRecettesParTag(
+    originalRecipesList,
+    updatedSelectedItems,
+  );
+
   if (searchValue.length >= 3) {
-    const resultFromSearch = searchAlgorithm(searchValue, recipesList);
+    const resultFromSearch = searchAlgorithm(searchValue, filteredRecipes);
     deleteInput.classList.remove("hidden");
 
     if (resultFromSearch.length === 0) {
@@ -69,11 +75,8 @@ searchInput.addEventListener("input", (event) => {
     }
   } else {
     deleteInput.classList.add("hidden");
-    recipesList = rechercherRecettesParTag(
-      originalRecipesList,
-      updatedSelectedItems,
-    );
-    updateList(recipesList);
+    updateList(filteredRecipes);
+    recipesList = filteredRecipes;
   }
 });
 
