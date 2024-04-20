@@ -116,7 +116,6 @@ export default class DropdownItem {
 
     // Create dropdown menu
     const dropdownMenu = document.createElement("div");
-    dropdownMenu.id = "dropdown-menu";
     dropdownMenu.className =
       "absolute left-0 right-0 z-10 hidden overflow-hidden rounded-b-xl bg-white max-h-60 overflow-y-auto ";
 
